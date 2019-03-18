@@ -5,8 +5,10 @@ author smith@example.com
 license: MIT"""
 
 import unittest
+import os
+import sys
+sys.path.append(os.getcwd())
 from highlighter import create_app
-
 
 class HighlightTest(unittest.TestCase):
     """Test class for flask app."""
@@ -15,12 +17,18 @@ class HighlightTest(unittest.TestCase):
         """This method is called each time the test routine run"""
         self.app = create_app().test_client()
         # TODO: add the missing test data in this routine
+        self.text = b'Sample text to be highlighted'
+        self.search_text = b'text'
         self.highlighted_text = b'Sample <mark>text</mark> to be highlighted'
 
     def tearDown(self):
         """This method is called after the test routine is finished
         to clear out the data created in setUp method."""
         # TODO: add an implementation
+        self.app = None
+        self.highlighted_text = None
+        self.text = None
+        self.search_text = None
 
     def test_markup_text(self):
         """Test markup process"""
